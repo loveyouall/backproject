@@ -96,6 +96,10 @@ app.get('/deleteSubjectInfo', (req, res) => {
   let id = req.query.id
   let sql = `DELETE from mysql.subjectList where id = ${id}`
   pools.query(sql).then((rows) => {
+    let deleteSql = `DELETE from mysql.equipmentList where id = ${id}`
+    pools.query(deleteSql).then().catch( e => {
+      console.log(e)
+    })
     res.send({
       code: 200,
       data: rows
@@ -136,7 +140,6 @@ app.get('/getEquipment', (req, res) => {
 // 删除设备信息
 app.get('/deleteEquipmentInfo', (req, res) => {
   let id = req.query.id
-  console.log(id, 999)
   let sql = `DELETE from mysql.equipmentList where id = ${id}`
   pools.query(sql).then((rows) => {
     res.send({
@@ -181,6 +184,19 @@ app.get('/addEquipmentInfo', (req, res) => {
     pools.query(createRecordSql).then((rows) => {}).catch( e => {
       console.log(e)
     })
+    res.send({
+      code: 200,
+      data: rows
+    })
+  }).catch( e => {
+    console.log(e)
+  })
+})
+
+// 获取设备记录
+app.get('/getRecord', (req, res) => {
+  let sql = 'select * from mysql.record'
+  pools.query(sql).then((rows) => {
     res.send({
       code: 200,
       data: rows
