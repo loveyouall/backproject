@@ -10,7 +10,7 @@ app.use(cors({
 let pools =  mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: '831015',
+  password: '234567',
   database: 'mysql',
   port: '3306',
   connectionLimit: 1000
